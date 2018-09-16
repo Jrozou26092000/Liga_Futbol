@@ -10,34 +10,34 @@ package ejercicio1;
  * @author Juanes
  */
 public class Vehiculo {
-    private int placas;
-    /*private Hora ingreso;
+    private String placas;
+    private Hora ingreso;
     private Hora salida;
 
-    public void VehiculoCompleto(int placas, Hora ingreso, Hora salida) {
+    public void VehiculoCompleto(String placas, Hora ingreso, Hora salida) {
         this.placas = placas;
         this.ingreso = ingreso;
         this.salida = salida;
-    }*/
+    }
 
-    public Vehiculo(int placas) {
+    public Vehiculo(String placas) {
         this.placas = placas;
     }
     
-    /*public void VehiculoIngreso(int placas, Hora ingreso) {
+    public void VehiculoIngreso(String placas, Hora ingreso) {
         this.placas = placas;
         this.ingreso = ingreso;
-    }*/
+    }
 
-    public int getPlacas() {
+    public String getPlacas() {
         return placas;
     }
 
-    public void setPlacas(int placas) {
+    public void setPlacas(String placas) {
         this.placas = placas;
     }
 
-    /*public Hora getIngreso() {
+    public Hora getIngreso() {
         return ingreso;
     }
 
@@ -51,6 +51,6 @@ public class Vehiculo {
 
     public void setSalida(Hora salida) {
         this.salida = salida;
-    }*/
+    }
     
 }

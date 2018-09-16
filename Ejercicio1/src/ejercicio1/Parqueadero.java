@@ -40,7 +40,10 @@ public class Parqueadero {
         }
         Wall pared = new Wall(ciudad, 5, 7, Direction.EAST);
         Thing thing = new Thing(ciudad, 6, 7);
-        Thing thing1 = new Thing(ciudad, 3, 2);
+        Thing thing1 = new Thing(ciudad, 6, 7);
+        Thing thing2 = new Thing(ciudad, 6, 7);
+        Thing thing3 = new Thing(ciudad, 6, 7);
+        /*Thing thing1 = new Thing(ciudad, 3, 2);
         Thing thing2 = new Thing(ciudad, 1, 3);
         Thing thing3 = new Thing(ciudad, 3, 3);
         Thing thing4 = new Thing(ciudad, 4, 2);
@@ -48,11 +51,11 @@ public class Parqueadero {
         Thing thing6 = new Thing(ciudad, 4, 3);
         Thing thing7 = new Thing(ciudad, 4, 2);
         Thing thing8 = new Thing(ciudad, 5, 1);
-        Thing thing9 = new Thing(ciudad, 2, 2);
+        Thing thing9 = new Thing(ciudad, 2, 2);*/
     }
     
     public void IngresarVehiculo() {
-        Recorrer();
+        //Recorrer();
         if(this.robot.canPickThing()==true){
             this.robot.pickThing();
         }
@@ -64,7 +67,7 @@ public class Parqueadero {
                 }
         }
     }
-    public void Recorrer(){
+    /*public void Recorrer(){
         Scanner leer = new Scanner(System.in);
         for(int i =0; i<4; i++){
             this.robot.move();
@@ -82,8 +85,8 @@ public class Parqueadero {
             for (int j = 0; j < 5; j++) {
                 if(this.robot.canPickThing()==false){
                     this.seccion[j][i] = null;
-                }else{
-                    Vehiculo vehiculo  = new Vehiculo(000);
+                }else if(this.seccion[j][i] != null){
+                    Vehiculo vehiculo  = new Vehiculo("000");
                     this.seccion[j][i] = new Seccion(vehiculo);
                 }
                 this.robot.move();
@@ -105,20 +108,19 @@ public class Parqueadero {
         for (int i = 0; i < 2; i++) {
             this.robot.turnLeft();
         }
-    }
+    }*/
     public void LlevarCarro(int i, int j){
         Scanner leer = new Scanner(System.in);
         System.out.println("Ingrese las placas del vehiculo: ");
-        int placa = leer.nextInt();
-        /*System.out.println("Hora de ingreso: ");
+        String placa = leer.next();
+        System.out.println("Hora de ingreso: ");
         System.out.println("Hora: ");
         int hora = leer.nextInt();
         System.out.println("Minutos: ");
         int minutos = leer.nextInt();
-        Hora ingreso = new Hora(hora, minutos);*/
+        Hora ingreso = new Hora(hora, minutos);
         Vehiculo vehiculo = new Vehiculo(placa);
-        //vehiculo.VehiculoIngreso(placa, ingreso);
-        //this.seccion[i][j] = new Seccion(vehiculo);
+        vehiculo.VehiculoIngreso(placa, ingreso);
         for (int k = 4+j; 0 < k; k--) {
             this.robot.move();
         }
@@ -173,7 +175,7 @@ public class Parqueadero {
                 c++;
             }
         }
-        if(a==b && a==c && a == 5){
+        if(a==b && a==c && a == 0){
             System.out.println("El parqueadero se encuentra lleno en este momento...");
         }
         if (b<=a && c<=a) {
@@ -191,7 +193,8 @@ public class Parqueadero {
         int numsec = leer.nextInt();
         numsec-=1;
         System.out.println("Placa del vehiculo?");
-        int numplaca = leer.nextInt();
+        String numplaca;
+        numplaca = leer.next();
         for (int i = 4+numsec; 0 < i; i--) {
             this.robot.move();
         }
@@ -204,7 +207,7 @@ public class Parqueadero {
             if(this.robot.canPickThing()==false){
                 this.robot.move();
                 a++;
-            }else if( this.seccion[i][numsec].getVehiculo().getPlacas() == numplaca){     
+            }else if(this.seccion[i][numsec].getVehiculo().getPlacas().equals(numplaca)){     
                     this.robot.pickThing();
                     this.robot.turnLeft();
                     this.robot.turnLeft();
@@ -221,6 +224,7 @@ public class Parqueadero {
                     this.robot.putThing();
                     i= -1;
                 }else{
+                    System.out.println(this.seccion[i][numsec].getVehiculo().getPlacas());
                     a+=1;
                     this.robot.pickThing();
                     this.robot.turnLeft();
@@ -233,17 +237,80 @@ public class Parqueadero {
                         this.robot.move();
                     }
                     this.robot.turnLeft();
-                    LLevarZonaTemporal(numsec,i);
+                    LLevarZonaTemporal(numsec,i,this.seccion[i][numsec].getVehiculo());
+            }
+        }
+        DevueltaVehiculoZonaTemporal(numsec);
+    }
+    public void DevueltaVehiculoZonaTemporal(int numsec){
+        for (int i = 0; i < 3; i++) {
+            this.robot.turnLeft();
+        }
+        this.robot.move();
+        this.robot.turnLeft();
+        while(this.robot.frontIsClear()==true){
+            this.robot.move();
+        }
+        this.robot.turnLeft();
+        this.robot.turnLeft();
+        int c = 1;
+        for (int i = 0; i < 4; i++) {
+            if(this.robot.canPickThing()==true){
+                this.robot.pickThing();
+                while(this.robot.frontIsClear()==true){
+                    this.robot.move();
+                }
+                for (int j = 0; j < 3; j++) {
+                    this.robot.turnLeft();
+                }
+                this.robot.move();
+                for (int j = 0; j < 3; j++) {
+                    this.robot.turnLeft();
+                }
+                for (int j = 4+numsec; 0 < j; j--) {
+                    this.robot.move();
+                }
+                for (int j = 0; j < 3; j++) {
+                    this.robot.turnLeft();
+                }
+                for (int j = 5-i; 0 < j; j--) {
+                    this.robot.move();
+                    Vehiculo vehiculo = this.temporal[4-i].getVehiculo();
+                    this.seccion[i][numsec] = new Seccion(vehiculo);
+                    this.temporal[4-i] = null;
+                }
+                for (int j = 0; j < 2; j++) {
+                    this.robot.turnLeft();
+                }
+                for (int j = 5-i; 0 < j; j--) {
+                    this.robot.move();
+                }
+                for (int j = 4+numsec; 0 < j; j--) {
+                    this.robot.move();
+                }
+                this.robot.turnLeft();
+                this.robot.move();
+                this.robot.turnLeft();
+                for (int j = 3-(i+1); 0 < j; j--) {
+                    this.robot.move();
+                }
+                this.robot.turnLeft();
+                this.robot.turnLeft();
+            }else{
+               this.robot.move();
             }
         }
     }
-    public void LLevarZonaTemporal(int numsec, int numfila){
+
+    public void LLevarZonaTemporal(int numsec, int numfila, Vehiculo vehi){
         this.robot.move();
         this.robot.turnLeft();
             for (int i = 0; i < 4; i++) {
                 if(this.robot.canPickThing()==true){
                     this.robot.move();
                 }else{
+                    this.seccion[numfila][numsec] = null;
+                    this.temporal[i] = new Temporal(vehi);
                     this.robot.putThing();
                     this.robot.turnLeft();
                     this.robot.turnLeft();
@@ -264,7 +331,6 @@ public class Parqueadero {
                     for (int k = 0; k < 3; k++) {
                         this.robot.turnLeft();
                     }
-                    //Aqui quede el robot sigue mas casillas y se mata, analizar numfila que se manda desde el otro metodo
                     for (int k = 5-numfila; 0 <= k; k--) {
                         this.robot.move();
                     }
