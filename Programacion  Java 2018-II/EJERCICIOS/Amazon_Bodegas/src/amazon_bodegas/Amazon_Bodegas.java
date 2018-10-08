@@ -41,7 +41,7 @@ public class Amazon_Bodegas {
                     //para tener en cuenta el limite de productos que se pueden alamacenar
                     //y con ello tenrer certeza de que solo ingresara la cantidad predeterminada
                     int cantidad;
-                    bodega.Recorridos(numEstante, 0);
+                    //bodega.Recorridos(numEstante, 0);
                     do {
                         //Se creo el metodo con el fin de que el empleado tenga
                         //presente cuantos productos puede guardar en el estante
@@ -77,7 +77,7 @@ public class Amazon_Bodegas {
                         }
                         i-=unidad;
                     }
-                    bodega.Recorridos(numEstante, 1);
+                    //bodega.Recorridos(numEstante, 1);
                     break;
                 case 2:
                     int numEstante_2;
@@ -104,7 +104,7 @@ public class Amazon_Bodegas {
                         System.out.println("Cuantas unidades disponibles desea retirar: ");
                         int unidad_2 = leer.nextInt();
                         
-                        bodega.Recorridos(numEstante_2, 0);
+                        //bodega.Recorridos(numEstante_2, 0);
                         
                         boolean exito = bodega.RetirarProductos(numEstante_2, unidad_2, nombre, id, codigo,cliente );
                         if(exito == true){
@@ -117,7 +117,7 @@ public class Amazon_Bodegas {
                         System.out.println("2- No");
                         decision = leer.nextInt();
                         if(decision == 2){
-                            bodega.Recorridos(numEstante_2, 1);
+                            //bodega.Recorridos(numEstante_2, 1);
                             bodega.Factura(unidad_2, codigo,cedula);
                         }
                     }while(decision == 1);

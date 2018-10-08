@@ -27,7 +27,7 @@ public class RobotBodega extends Robot{
     public void setId(int id) {
         this.id = id;
     }
-    public void RecorridoIda(int fila, int columna){
+    /*public void RecorridoIda(int fila, int columna){
         this.robot.move();
         if(this.robot.getAvenue() == 1){
             this.robot.turnLeft();
@@ -54,5 +54,5 @@ public class RobotBodega extends Robot{
     }
     public void RecorridoVuleta(int fila, int columna){
         
-    }
+    }*/
 }

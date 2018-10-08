@@ -220,7 +220,7 @@ public class Bodega {
         System.out.println("-----------------------------------------------------");
         return false;
     }
-    public void Recorridos(int numEstante,int opcion){
+    /*public void Recorridos(int numEstante,int opcion){
         int robotDisponible = 0;
         int fila = this.estante[numEstante].getFila();
         int columna = this.estante[numEstante].getColumna();
@@ -234,6 +234,6 @@ public class Bodega {
         }else if(opcion == 1){
             this.robot[0].RecorridoVuleta(fila, columna);
         }
-    }
+    }*/
 }
     
