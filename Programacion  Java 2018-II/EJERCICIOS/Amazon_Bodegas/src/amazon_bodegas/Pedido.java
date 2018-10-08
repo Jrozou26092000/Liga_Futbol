@@ -14,10 +14,12 @@ import java.util.ArrayList;
 public class Pedido {
     private int id;
     private ArrayList<Producto> producto;
+    private Cliente cliente;
 
-    public Pedido(int id) {
+    public Pedido(int id, Cliente cliente) {
         this.id = id;
         this.producto = new ArrayList<Producto>();
+        this.cliente = cliente;
     }
 
     public int getId() {
@@ -35,6 +37,15 @@ public class Pedido {
     public void setProducto(ArrayList<Producto> producto) {
         this.producto = producto;
     }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+    
     
     public boolean addProducto(Producto p){
         return this.producto.add(p);

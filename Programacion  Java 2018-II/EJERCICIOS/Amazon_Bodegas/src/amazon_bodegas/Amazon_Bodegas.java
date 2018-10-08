@@ -41,7 +41,7 @@ public class Amazon_Bodegas {
                     //para tener en cuenta el limite de productos que se pueden alamacenar
                     //y con ello tenrer certeza de que solo ingresara la cantidad predeterminada
                     int cantidad;
-                    
+                    bodega.Recorridos(numEstante, 0);
                     do {
                         //Se creo el metodo con el fin de que el empleado tenga
                         //presente cuantos productos puede guardar en el estante
@@ -77,6 +77,7 @@ public class Amazon_Bodegas {
                         }
                         i-=unidad;
                     }
+                    bodega.Recorridos(numEstante, 1);
                     break;
                 case 2:
                     int numEstante_2;
@@ -85,6 +86,12 @@ public class Amazon_Bodegas {
                     String nombre;
                     System.out.println("Numero con el que desea registrar el pedido: ");
                     int codigo = leer.nextInt();
+                    System.out.println("Datos del cliente: ");
+                    System.out.println("Nombre: ");
+                    String nomCliente = leer.next();
+                    System.out.println("Cedula: ");
+                    int cedula = leer.nextInt();
+                    Cliente cliente = new Cliente(nomCliente, cedula);
                     do{
                         System.out.println("Nombre del producto que desea retirar: ");
                         nombre = leer.next();
@@ -96,8 +103,10 @@ public class Amazon_Bodegas {
                         numEstante_2 = leer.nextInt()-1;                        
                         System.out.println("Cuantas unidades disponibles desea retirar: ");
                         int unidad_2 = leer.nextInt();
-                        //generar la factura
-                        boolean exito = bodega.RetirarProductos(numEstante_2, unidad_2, nombre, id, codigo);
+                        
+                        bodega.Recorridos(numEstante_2, 0);
+                        
+                        boolean exito = bodega.RetirarProductos(numEstante_2, unidad_2, nombre, id, codigo,cliente );
                         if(exito == true){
                             System.out.println("Los productos fueron retirados con exito");
                         }else{
@@ -108,7 +117,8 @@ public class Amazon_Bodegas {
                         System.out.println("2- No");
                         decision = leer.nextInt();
                         if(decision == 2){
-                            bodega.Factura(unidad_2, codigo);
+                            bodega.Recorridos(numEstante_2, 1);
+                            bodega.Factura(unidad_2, codigo,cedula);
                         }
                     }while(decision == 1);
             }

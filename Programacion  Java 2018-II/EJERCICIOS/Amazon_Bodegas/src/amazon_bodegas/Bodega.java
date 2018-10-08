@@ -148,7 +148,7 @@ public class Bodega {
         }
         System.out.println("Cantidad de productos disponibles en el estante: "+c);
     }
-    public boolean RetirarProductos(int numEstante, int unidades, String nombre, int id, int codigo){
+    public boolean RetirarProductos(int numEstante, int unidades, String nombre, int id, int codigo, Cliente cliente){
         Producto[] productos = this.estante[numEstante].getProductos();
         Pedido pedido = null;
         boolean pedidoExistente = true;
@@ -160,7 +160,7 @@ public class Bodega {
             }
         }else{
             pedidoExistente = false;
-            pedido = new Pedido(codigo);
+            pedido = new Pedido(codigo,cliente);
         }
         
         for (int i = 0; i < 21; i++) {
@@ -169,11 +169,9 @@ public class Bodega {
                     pedido.addProducto(productos[i]);
                     unidades-=1;
                     productos[i] = null;
-                    System.out.println("Check");
                 }
             }
             if((unidades == 0) && (pedidoExistente== false)){
-                System.out.println("unidades");
                 this.estante[numEstante].setProductos(productos);
                 this.pedidos.add(pedido);
                 ProductosEstante(numEstante);
@@ -200,11 +198,15 @@ public class Bodega {
             }
         }
     }
-    public boolean Factura(int unidades, int codigo){
+    public boolean Factura(int unidades, int codigo, int cedula){
         System.out.println("------------------------Factura----------------------");
         ArrayList<Producto> p = null;
         for (int i = 0; i < this.pedidos.size(); i++) {
-           if(this.pedidos.get(i).getId() == codigo){
+           if((this.pedidos.get(i).getId() == codigo)&&(this.pedidos.get(i).getCliente().getCedula()== cedula)){
+               Cliente cliente = this.pedidos.get(i).getCliente();
+               System.out.println("                 Cliente             ");
+               System.out.println("Nombre: "+cliente.getNombre());
+               System.out.println("Cedula: "+cliente.getCedula());
                p = this.pedidos.get(i).getProducto();
            }
         }
@@ -217,6 +219,21 @@ public class Bodega {
         System.out.println("TOTAL: "+ costo);
         System.out.println("-----------------------------------------------------");
         return false;
+    }
+    public void Recorridos(int numEstante,int opcion){
+        int robotDisponible = 0;
+        int fila = this.estante[numEstante].getFila();
+        int columna = this.estante[numEstante].getColumna();
+        if(opcion == 0){
+        for (int i = 0; i < 10; i++) {
+            if(this.robot[i].getStreet()== 14){
+                robotDisponible = i;
+            }
+        }
+        this.robot[robotDisponible].RecorridoIda(fila,columna);
+        }else if(opcion == 1){
+            this.robot[0].RecorridoVuleta(fila, columna);
+        }
     }
 }
     
